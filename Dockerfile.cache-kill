@@ -1,0 +1,11 @@
+FROM node:18-alpine
+WORKDIR /app
+
+# ❌ Copy EVERYTHING first
+COPY . .
+
+# npm install runs EVERY time
+# ANY code change = full reinstall
+RUN npm install
+
+CMD ["node", "server.js"]

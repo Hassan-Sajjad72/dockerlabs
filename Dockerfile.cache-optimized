@@ -1,0 +1,15 @@
+FROM node:18-alpine
+WORKDIR /app
+
+# ✅ Copy package files FIRST
+COPY package*.json ./
+
+# npm install cached unless
+# package.json changes
+RUN npm ci --only=production
+
+# Source code changes don't
+# invalidate npm install layer
+COPY . .
+
+CMD ["node", "server.js"]
